@@ -5,6 +5,453 @@
 Browserslist: caniuse-lite is outdated. Please run:
   npx browserslist@latest --update-db
   Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+FAIL src/nested.test.ts
+  ● Testing the Question[] functions › Testing the getNonEmptyQuestions functions
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 32
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 1,
+    +     "name": "Question 1",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "multiple_choice_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 47,
+    +     "name": "My New Question",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "multiple_choice_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 2,
+    +     "name": "Question 2",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "short_answer_question",
+    +   },
+    + ]
+
+      150 |
+      151 |     test("Testing the getNonEmptyQuestions functions", () => {
+    > 152 |         expect(getNonEmptyQuestions(BLANK_QUESTIONS)).toEqual([]);
+          |                                                       ^
+      153 |         expect(getNonEmptyQuestions(SIMPLE_QUESTIONS)).toEqual(
+      154 |             BACKUP_SIMPLE_QUESTIONS
+      155 |         );
+
+      at Object.<anonymous> (src/nested.test.ts:152:55)
+
+  ● Testing the Question[] functions › Testing the findQuestion function
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"body": "", "expected": "", "id": 1, "name": "Question 1", "options": [], "points": 1, "published": false, "type": "multiple_choice_question"}
+    Received: undefined
+
+      205 |
+      206 |     test("Testing the findQuestion function", () => {
+    > 207 |         expect(findQuestion(BLANK_QUESTIONS, 1)).toEqual(BLANK_QUESTIONS[0]);
+          |                                                  ^
+      208 |         expect(findQuestion(BLANK_QUESTIONS, 47)).toEqual(BLANK_QUESTIONS[1]);
+      209 |         expect(findQuestion(BLANK_QUESTIONS, 2)).toEqual(BLANK_QUESTIONS[2]);
+      210 |         expect(findQuestion(BLANK_QUESTIONS, 3)).toEqual(null);
+
+      at Object.<anonymous> (src/nested.test.ts:207:50)
+
+  ● Testing the Question[] functions › Testing the sumPublishedPoints function
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: 20
+    Received: 4
+
+      398 |         expect(sumPublishedPoints(SIMPLE_QUESTIONS)).toEqual(2);
+      399 |         expect(sumPublishedPoints(TRIVIA_QUESTIONS)).toEqual(0);
+    > 400 |         expect(sumPublishedPoints(EMPTY_QUESTIONS)).toEqual(20);
+          |                                                     ^
+      401 |         expect(sumPublishedPoints(SIMPLE_QUESTIONS_2)).toEqual(300);
+      402 |     });
+      403 |
+
+      at Object.<anonymous> (src/nested.test.ts:400:53)
+
+  ● Testing the Question[] functions › Testing the toCSV function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 4
+    + Received  + 3
+
+    - id,name,options,points,published
+    - 1,Question 1,0,1,false
+    + 1, Question 1,0, 1, false
+    - 47,My New Question,0,1,false
+    + 47, My New Question,0, 1, false
+    - 2,Question 2,0,1,false
+    + 2, Question 2,0, 1, false
+
+      403 |
+      404 |     test("Testing the toCSV function", () => {
+    > 405 |         expect(toCSV(BLANK_QUESTIONS)).toEqual(`id,name,options,points,published
+          |                                        ^
+      406 | 1,Question 1,0,1,false
+      407 | 47,My New Question,0,1,false
+      408 | 2,Question 2,0,1,false`);
+
+      at Object.<anonymous> (src/nested.test.ts:405:40)
+
+  ● Testing the Question[] functions › Testing the publishAll function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 3
+
+    @@ -4,29 +4,29 @@
+          "expected": "",
+          "id": 1,
+          "name": "Question 1",
+          "options": Array [],
+          "points": 1,
+    -     "published": true,
+    +     "published": false,
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+          "id": 47,
+          "name": "My New Question",
+          "options": Array [],
+          "points": 1,
+    -     "published": true,
+    +     "published": false,
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+          "id": 2,
+          "name": "Question 2",
+          "options": Array [],
+          "points": 1,
+    -     "published": true,
+    +     "published": false,
+          "type": "short_answer_question",
+        },
+      ]
+
+      467 |
+      468 |     test("Testing the publishAll function", () => {
+    > 469 |         expect(publishAll(BLANK_QUESTIONS)).toEqual([
+          |                                             ^
+      470 |             {
+      471 |                 id: 1,
+      472 |                 name: "Question 1",
+
+      at Object.<anonymous> (src/nested.test.ts:469:45)
+
+  ● Testing the Question[] functions › Testing the addNewQuestion function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 10
+    + Received  +  0
+
+    @@ -37,16 +37,6 @@
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "short_answer_question",
+        },
+    -   Object {
+    -     "body": "",
+    -     "expected": "",
+    -     "id": 142,
+    -     "name": "A new question",
+    -     "options": Array [],
+    -     "points": 1,
+    -     "published": false,
+    -     "type": "short_answer_question",
+    -   },
+      ]
+
+      656 |                 "short_answer_question"
+      657 |             )
+    > 658 |         ).toEqual([...BLANK_QUESTIONS, NEW_BLANK_QUESTION]);
+          |           ^
+      659 |         expect(
+      660 |             addNewQuestion(
+      661 |                 TRIVIA_QUESTIONS,
+
+      at Object.<anonymous> (src/nested.test.ts:658:11)
+
+  ● Testing the Question[] functions › Testing the renameQuestionById function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  7
+    + Received  + 17
+
+      Array [
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 1,
+    -     "name": "New Name",
+    +     "id": 47,
+    +     "name": "My New Question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 47,
+    -     "name": "My New Question",
+    +     "id": 2,
+    +     "name": "Question 2",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+    -     "type": "multiple_choice_question",
+    +     "type": "short_answer_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 2,
+    -     "name": "Question 2",
+    +     "id": 142,
+    +     "name": "A new question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "short_answer_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 1,
+    +     "name": "New Name",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "multiple_choice_question",
+        },
+      ]
+
+      668 |
+      669 |     test("Testing the renameQuestionById function", () => {
+    > 670 |         expect(renameQuestionById(BLANK_QUESTIONS, 1, "New Name")).toEqual([
+          |                                                                    ^
+      671 |             {
+      672 |                 id: 1,
+      673 |                 name: "New Name",
+
+      at Object.<anonymous> (src/nested.test.ts:670:68)
+
+  ● Testing the Question[] functions › Test the changeQuestionTypeById function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 10
+    + Received  + 10
+
+    @@ -1,19 +1,9 @@
+      Array [
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 1,
+    -     "name": "Question 1",
+    -     "options": Array [],
+    -     "points": 1,
+    -     "published": false,
+    -     "type": "multiple_choice_question",
+    -   },
+    -   Object {
+    -     "body": "",
+    -     "expected": "",
+          "id": 47,
+          "name": "My New Question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+    @@ -36,7 +26,17 @@
+          "name": "A new question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "short_answer_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 1,
+    +     "name": "Question 1",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "multiple_choice_question",
+        },
+      ]
+
+      785 |                 "multiple_choice_question"
+      786 |             )
+    > 787 |         ).toEqual(BLANK_QUESTIONS);
+          |           ^
+      788 |         expect(
+      789 |             changeQuestionTypeById(BLANK_QUESTIONS, 1, "short_answer_question")
+      790 |         ).toEqual([
+
+      at Object.<anonymous> (src/nested.test.ts:787:11)
+
+  ● Testing the Question[] functions › Testing the editOption function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  2
+    + Received  + 18
+
+    @@ -14,21 +14,37 @@
+        Object {
+          "body": "",
+          "expected": "",
+          "id": 47,
+          "name": "My New Question",
+    -     "options": Array [],
+    +     "options": Array [
+    +       "NEW OPTION",
+    +     ],
+          "points": 1,
+          "published": false,
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+          "id": 2,
+          "name": "Question 2",
+    -     "options": Array [],
+    +     "options": Array [
+    +       "NEW OPTION",
+    +     ],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "short_answer_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 142,
+    +     "name": "A new question",
+    +     "options": Array [
+    +       "NEW OPTION",
+    +     ],
+          "points": 1,
+          "published": false,
+          "type": "short_answer_question",
+        },
+      ]
+
+      895 |
+      896 |     test("Testing the editOption function", () => {
+    > 897 |         expect(editOption(BLANK_QUESTIONS, 1, -1, "NEW OPTION")).toEqual([
+          |                                                                  ^
+      898 |             {
+      899 |                 id: 1,
+      900 |                 name: "Question 1",
+
+      at Object.<anonymous> (src/nested.test.ts:897:66)
+
+  ● Testing the Question[] functions › Testing the duplicateQuestionInArray function
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  7
+    + Received  + 17
+
+    @@ -10,33 +10,43 @@
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 27,
+    -     "name": "Copy of Question 1",
+    +     "id": 47,
+    +     "name": "My New Question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "multiple_choice_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 47,
+    -     "name": "My New Question",
+    +     "id": 2,
+    +     "name": "Question 2",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+    -     "type": "multiple_choice_question",
+    +     "type": "short_answer_question",
+        },
+        Object {
+          "body": "",
+          "expected": "",
+    -     "id": 2,
+    -     "name": "Question 2",
+    +     "id": 142,
+    +     "name": "A new question",
+          "options": Array [],
+          "points": 1,
+          "published": false,
+          "type": "short_answer_question",
+    +   },
+    +   Object {
+    +     "body": "",
+    +     "expected": "",
+    +     "id": 1,
+    +     "name": "Copy ofQuestion 1",
+    +     "options": Array [],
+    +     "points": 1,
+    +     "published": false,
+    +     "type": "multiple_choice_question",
+        },
+      ]
+
+      1089 |
+      1090 |     test("Testing the duplicateQuestionInArray function", () => {
+    > 1091 |         expect(duplicateQuestionInArray(BLANK_QUESTIONS, 1, 27)).toEqual([
+           |                                                                  ^
+      1092 |             {
+      1093 |                 id: 1,
+      1094 |                 name: "Question 1",
+
+      at Object.<anonymous> (src/nested.test.ts:1091:66)
+
 PASS src/arrays.test.ts
 FAIL src/objects.test.ts
   ● Testing the object functions › Testing the isCorrect function
@@ -535,17 +982,19 @@ FAIL src/App.test.tsx
 ----------------|---------|----------|---------|---------|-------------------
 File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 ----------------|---------|----------|---------|---------|-------------------
-All files       |   97.47 |    95.91 |   95.12 |   97.43 |                   
- src            |   97.47 |    95.91 |   95.12 |   97.43 |                   
+All files       |   96.95 |    91.93 |   97.53 |   96.87 |                   
+ src            |   96.95 |    91.93 |   97.53 |   96.87 |                   
   App.tsx       |      50 |      100 |      50 |      50 | 17                
   arrays.ts     |   98.38 |    96.29 |     100 |   98.33 | 107               
   functions.ts  |     100 |      100 |     100 |     100 |                   
+  nested.ts     |   96.15 |    76.92 |     100 |      96 | 47,334-336        
   objects.ts    |   97.14 |       90 |    90.9 |   97.14 | 95                
  src/interfaces |       0 |        0 |       0 |       0 |                   
+  answer.ts     |       0 |        0 |       0 |       0 |                   
   question.ts   |       0 |        0 |       0 |       0 |                   
 ----------------|---------|----------|---------|---------|-------------------
-Test Suites: 3 failed, 3 passed, 6 total
-Tests:       8 failed, 25 passed, 33 total
+Test Suites: 4 failed, 3 passed, 7 total
+Tests:       18 failed, 31 passed, 49 total
 Snapshots:   0 total
-Time:        4.353 s
+Time:        6.43 s
 Ran all test suites.
