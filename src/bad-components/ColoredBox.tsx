@@ -54,3 +54,4 @@ export function ColoredBox(): JSX.Element {
             </div>
         </div>
     );
+}
